@@ -23,18 +23,18 @@ co jest obowiązkowe i jak wygląda każdy komponent.
 
 ## 1. Czym jest ten system
 
-Ciemny, wysoko-gęsty interfejs do **zautomatyzowanej infrastruktury**: monitoring,
+Ciemny, ciasno zabudowany interfejs do **zautomatyzowanej infrastruktury**: monitoring,
 diagnostyka, orkiestracja. Użytkownik nie przegląda — on nadzoruje. Stąd wynikają
 trzy decyzje, których nie łamj:
 
 1. **Dark mode domyślnie.** Narzędzia używane są w słabo oświetlonych NOC-ach.
-2. **Duża gęstość.** 13.5–15px tekstu na rytmie 8px. Operator chce informacji na
+2. **Ciasne rozmiary.** 13.5–15px tekstu, 36 px wierszy tabeli, rytm 8px. Operator chce informacji na
    ekranie, nie „powietrza".
 3. **Kolor jest sygnałem, nie dekoracją.** W interfejsie z alertami kolor niesie
    znaczenie — dlatego jego użycie jest ograniczone do ról semantycznych.
 
 **Nie jest to** system do landing page'ów marketingowych, bloga czy e-commerce.
-Tam `--bg-canvas` i gęstość nie mają sensu — jeśli projekt jest marketingowy,
+Tam `--bg-canvas` i ciasne rozmiary nie mają sensu — jeśli projekt jest marketingowy,
 powiedz o tym, zamiast na siłę wtłaczać ten system.
 
 ---
@@ -466,9 +466,9 @@ przez zmianę `variant`. Nowy komponent to wyjątek, nie domyślność.
 - Statusy ogłaszane przez `aria-live="polite"`, nie przez sam kolor
 - Obraz bez `alt` → wyjątek dekoracyjny z `aria-hidden`
 
-### [Mode: Data Density Reviewer]
-**Focus:** tabele, dashboardy, metryki — tam, gdzie gęstość jest celem.
-**Zasada:** gęstość to funkcja, ale nie kosztem skanowania.
+### [Mode: Data Table Reviewer]
+**Focus:** tabele, dashboardy, metryki — tam, gdzie celem jest zmieści więcej stanu na ekranie.
+**Zasada:** zmieścenie więcej wierszy to funkcja, ale nie kosztem skanowania.
 **Checklista:**
 - `font-variant-numeric: tabular-nums` w każdej kolumnie liczb
 - Status w tym samym wierszu co zasób, nie w osobnej kolumnie daleko

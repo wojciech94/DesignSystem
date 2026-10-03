@@ -26,18 +26,18 @@ component looks.
 
 ## 1. What this system is
 
-A dark, high-density interface for **automated infrastructure**: monitoring,
+A dark, tightly packed interface for **automated infrastructure**: monitoring,
 diagnostics, orchestration. The user is not browsing — they are supervising. Three
 decisions follow, and you do not break them:
 
 1. **Dark mode by default.** These tools are used in poorly lit operations rooms.
-2. **High density.** 13.5–15px body text on an 8px internal rhythm. The operator wants
+2. **Tight sizing.** 13.5–15px body text, 36 px table rows, 8 px internal rhythm. The operator wants
    information on screen, not air.
 3. **Colour is a signal, not decoration.** In an alerting surface colour carries
    meaning — which is why its use is confined to semantic roles.
 
 **This is not** a system for marketing landing pages, blogs or e-commerce. `--bg-canvas`
-and the density make no sense there — if the project is marketing, say so instead of
+and the tight sizing make no sense there — if the project is marketing, say so instead of
 forcing this system onto it.
 
 ---
@@ -471,9 +471,9 @@ priorities** — it does not suspend section 3 (the hard rules).
 - Statuses announced through `aria-live="polite"`, not by colour alone
 - Image without `alt` → decorative case with `aria-hidden`
 
-### [Mode: Data Density Reviewer]
-**Focus:** tables, dashboards, metrics — where density is the goal.
-**Rule:** density is a feature, but not at the cost of scanning.
+### [Mode: Data Table Reviewer]
+**Focus:** tables, dashboards, metrics — where fitting more state per screen is the goal.
+**Rule:** fitting more rows per screen is a feature, but not at the cost of scanning.
 **Checklist:**
 - `font-variant-numeric: tabular-nums` in every column of figures
 - Status on the same row as its resource, not in a distant column

@@ -6,9 +6,9 @@ minutes; choosing wrong takes weeks to undo.
 
 Two things to internalise before you start:
 
-1. **Port the tokens, not the density.** The system is calibrated for a NOC
+1. **Port the tokens, not the sizes.** The system is calibrated for a NOC
    operator watching thousands of machines. A client portal is a different user.
-   Copying the density rules verbatim produces an interface that looks like a
+   Copying its 13.5 px text and 36 px rows verbatim produces an interface that looks like a
    monitoring tool and was never requested.
 2. **Both themes ship.** `data-theme="light"` switches everything; drop the
    attribute and it falls back to dark. Components never name a theme.
@@ -21,14 +21,14 @@ Ask who the user is, not what the product is.
 
 | User | Fits? | What you inherit |
 |---|---|---|
-| Operator, support, SRE | Yes, fully | Everything including density |
-| Back-office staff, sales, logistics | Yes, loosened | Tokens + components, relaxed density |
-| End customer on a portal | Yes, with light theme | Tokens + components, relaxed density |
+| Operator, support, SRE | Yes, fully | All of it, including 36 px rows |
+| Back-office staff, sales, logistics | Yes, loosened | Tokens + components, 44 px rows |
+| End customer on a portal | Yes, with light theme | Tokens + components, 44 px rows |
 
-If the answer is "marketing site", stop. Dark high-density tokens on a marketing
+If the answer is "marketing site", stop. Dark tokens on a marketing
 page read as a defect, not a decision.
 
-**Default:** end customers → light theme, relaxed density, no motion budget
+**Default:** end customers → light theme, 44 px rows, motion only on hover
 beyond hover feedback.
 
 ---
@@ -41,7 +41,7 @@ Three levels. Do not start at the top.
 |---|---|---|---|
 | 1 | `tokens/` + `adapters/` | 2 h | Consistent colour, spacing, radii, type across the whole app |
 | 2 | Level 1 + the 4 component recipes | 1–2 d | The whole interaction surface |
-| 3 | Level 2 + density, motion, table rules | 1 wk+ | Worth it only for operational tools |
+| 3 | Level 2 + table sizing, motion, a11y contract | 1 wk+ | Worth it only for operational tools |
 
 **Default: Level 2.** Level 1 alone is the highest return per hour in the whole
 system — do it first, before deciding anything else.
@@ -80,7 +80,7 @@ shadcn does need the matching adapter block — see `adapters/shadcn-light.css`.
 
 ---
 
-## Phase 3 — What density?
+## Phase 3 — How big should things be?
 
 This is the decision people skip and then regret.
 
@@ -92,15 +92,15 @@ This is the decision people skip and then regret.
 
 **Default: customer portal.** Larger text, roomier rows, more whitespace.
 
-Relaxing density means: more padding, not larger type everywhere. Large text in
+Going roomier means larger text, rows and controls. Large text in
 dense UI is worse than small text in a roomy layout.
 
 ---
 
 ## Phase 4 — Write the project AGENTS.md
 
-**Do not copy this system's `AGENTS.md` wholesale.** It carries density
-calibration for a different user, and an agent will apply it literally — producing
+**Do not copy this system's `AGENTS.md` wholesale.** It carries sizing
+calibrated for a different user, and an agent will apply it literally — producing
 a client app that looks like a cockpit.
 
 Write a short project-local file instead:
@@ -120,7 +120,7 @@ R5  visible keyboard focus, never remove it
 R7  survives 200% zoom and 320 px
 
 ## Deliberately out of scope
-Density from the base system: 13.5 px body, 36 px rows, tabular figures
+Sizing from the base system: 13.5 px body, 36 px rows, tabular figures
 everywhere. This portal targets customers, so: 15 px body, 44 px rows,
 tabular figures only in numeric columns.
 The motion budget applies to hover feedback only — no entrance animations.
@@ -162,7 +162,7 @@ system, and the next client gets the previous client's requirements.
 | "Make this button pink" | Client project only. Never back into the system. |
 | "Our brand colour is X" | Client project's `:root` override, documented |
 | "We need a new component" | Upstream as a proposal — genuinely generic? Add it |
-| "Our density is different" | Client project, per Phase 3 |
+| "Our rows are too tight" | Client project, per Phase 3 |
 
 **Rule: changes flow upstream only when they are not client-specific.** If you
 cannot explain the change without naming the client, it stays local.
@@ -178,7 +178,7 @@ request back is how a design system dies.
 2. **One page end to end** with real data, even if only half-finished
 3. **Button, Text field** — the two you will use most
 4. **Statuses** — Badge plus the semantic colours
-5. **Tables and lists** — density decisions land here
+5. **Tables and lists** — the sizing decisions land here
 6. **States** — empty, loading, error, success
 7. **Accessibility pass** — keyboard, contrast, screen reader
 
@@ -211,7 +211,7 @@ node tools/gen-adapters.mjs    # exits non-zero if any pair falls below AA
 
 ## Checklist you can hand to someone else
 
-- [ ] Phase 0 answered: who is the user, which density profile
+- [ ] Phase 0 answered: who is the user, which size profile
 - [ ] Phase 1 chosen: tokens only, or tokens + components
 - [ ] Phase 2 answered: which theme is default
 - [ ] `data-theme` attribute set on `<html>`

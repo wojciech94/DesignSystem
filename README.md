@@ -1,6 +1,6 @@
 # Enterprise Automation Interface System
 
-A dark, high-density design system for infrastructure, monitoring and automation
+A dark, tightly packed design system for infrastructure, monitoring and automation
 interfaces. Ships with a documentation board, a token layer, adapters for the common
 stacks, and instructions for agents.
 
@@ -56,7 +56,7 @@ Full instructions, including adding a third language:
 
 This system is optimised for a **dense operational interface** where the user monitors,
 diagnoses and reacts. The dark background comes from working in dimly lit rooms and
-beside a terminal. The high density comes from needing the full system state on one
+beside a terminal. The tight sizing comes from needing the full system state on one
 screen.
 
 | Case | Fits? |
@@ -67,7 +67,7 @@ screen.
 | SaaS application with forms and lists | **Yes, with restraint** |
 | Landing page, marketing site, blog | **No** — far too dense, not enough light surface |
 | Documentation reader, tutorial | **No** — contrast too low for long-form text |
-| Store, checkout, customer onboarding | **No** — tone and density do not fit |
+| Store, checkout, customer onboarding | **No** — tone and sizing do not fit |
 
 If the project does not match the first four rows, **do not force this system onto
 it**. Dark tokens on a marketing page read as a defect, not a design decision. Every
@@ -319,7 +319,7 @@ node tools/gen-adapters.mjs    # prints the contrast audit
 - **12 anti-patterns** caught in code review
 - **Definition of Done** — 10 checkpoints
 - **4 modes (personas)**: Design System Maintainer, UI Implementer,
-  Accessibility Auditor, Data Density Reviewer
+  Accessibility Auditor, Data Table Reviewer
 
 A mode is entered with one sentence, e.g. *"Act as Accessibility Auditor"*.
 Full list of invocations: `AGENTS.md` section 8.

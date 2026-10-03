@@ -56,7 +56,7 @@ Pełna instrukcja, w tym dodanie trzeciego języka:
 
 Ten system jest zoptymalizowany pod **gęsty interfejs operacyjny**, gdzie użytkownik
 monitoruje, diagnozuje i reaguje. Ciemne tło wynika z pracy w słabo oświetlonych
-pomieszczeniach i obok terminala. Wysoka gęstość wynika z potrzeby widzenia
+pomieszczeniach i obok terminala. Ciasne rozmiary wynikają z potrzeby widzenia
 pełnego stanu systemu na jednym ekranie.
 
 | Przypadek | Pasuje? |
@@ -65,9 +65,9 @@ pełnego stanu systemu na jednym ekranie.
 | Aplikacja z dużą ilością danych, tabel, statusów | **Tak** |
 | Kokpit operatora, NOC, centrum alarmowe | **Tak** |
 | Aplikacja SaaS z formularzami i listami | **Tak, z umiarem** |
-| Landing page, strona marketingowa, blog | **Nie** — za dużo gęstości, za mało białego tła |
+| Landing page, strona marketingowa, blog | **Nie** — za ciasno, za mało białego tła |
 | Czytelnik dokumentacji, tutorial | **Nie** — zbyt niski kontrast dla długiego tekstu |
-| Sklep, checkout, onboarding klienta | **Nie** — ton i gęstość nie pasują |
+| Sklep, checkout, onboarding klienta | **Nie** — ton i rozmiary nie pasują |
 
 Jeśli projekt nie pasuje do pierwszych czterech wierszy, **nie używaj tego systemu
 na siłę**. Ciemne tokeny na stronie marketingowej wyglądają jak błąd, nie jak
@@ -324,7 +324,7 @@ node tools/gen-adapters.mjs    # wypisuje audyt kontrastu
 - **12 anti-patternów** wykrywanych w code review
 - **Definition of Done** — 10 punktów kontrolnych
 - **4 tryby (personas)**: Design System Maintainer, UI Implementer,
-  Accessibility Auditor, Data Density Reviewer
+  Accessibility Auditor, Data Table Reviewer
 
 Tryb włącza się jednym zdaniem, np. *„Działaj jako Accessibility Auditor"*.
 Pełna lista wywołań: `AGENTS.md` sekcja 8.
