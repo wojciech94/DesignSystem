@@ -80,10 +80,20 @@ for (const { term, conditional } of banned.values()) {
 const GLUED = /(?<![-\w.$@])\d(?:[\d.,]*\d)?(px|ms|rem|em|vh|vw)\b/g;
 const polishWords = (v) => (v.match(/\b[a-ząćęłńóśźż]{2,}\b/g) || []).length;
 
+// Documented exception: a number+unit that IS a quoted CSS value stays
+// tight, because the reader copies "1px", not "1 px", into their code.
+// Kept in sync with the glossary section "Wyjątek — cytowana wartość CSS".
+const CSS_VALUE_EXEMPT = [
+  { match: (v) => /^1px \{0\}/.test(v), why: 'opis deklaracji inset-shadow' },
+  { match: (v) => v.includes('po\u015bwiata 3px'), why: 'wymiar w specyfikacji komponentu' },
+  { match: (v) => /\. 110ms\.$/.test(v), why: 'sama warto\u015b\u0107 na ko\u0144cu kom\u00f3rki tabeli' },
+];
+
 for (const [k, v] of entries) {
   const raw = v.replace(/`[^`]*`/g, '');        // ignore inline code spans
   const sentence = polishWords(raw) >= 8 && /[.!?]\s/.test(raw);
   if (!sentence) continue;                       // spec lines and labels are exempt
+  if (CSS_VALUE_EXEMPT.some((e) => e.match(v))) continue;   // documented exception
   const hits = [...raw.matchAll(GLUED)];
   if (!hits.length) continue;
   warnings.push(`TYPO             „${k.slice(0, 48)}…”\n     brak spacji: ${hits.map((h) => h[0]).join(', ')}`);

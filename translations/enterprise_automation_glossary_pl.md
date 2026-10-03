@@ -529,6 +529,18 @@ W identyfikatorach i nazwach technicznych spacji nie ma — to nie jest proza:
 - `400ms` w kontekście technicznym — bez spacji
 - `sm`, `md`, `lg`, `ds-1` — bez spacji
 
+**Wyjątek — cytowana wartość CSS.** Gdy liczba z jednostką jest dosłowną
+wartością CSS, którą czytelnik przepisze do kodu, zostaw formę zbitą.
+Czytelnik ma skopiować `1px`, nie `1 px`:
+
+- `1px  cień wewnętrzny` — opis deklaracji `inset-shadow`, nie pomiar w tekście
+- `poświata 3px` — wymiar w specyfikacji komponentu
+- `110ms.` — sama wartość zamykająca komórkę tabeli
+
+Różnica: pomiar w tekście ciągłym (`18 px`, `w 260 ms`) dostaje spację;
+cytowana wartość CSS (`1px`, `3px`) — nie. `lint-glossary.mjs` zna tę wyjątek
+i nie zgłasza go jako TYPO.
+
 Nie stosuj twardej spacji (`U+00A0`) w plikach źródłowych — zwykła spacja wystarcza i nie komplikuje diffów.
 
 ### Znaki przestankowe
