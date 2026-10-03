@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smoke test — Enterprise Automation DS</title>
+
+<!--
+  Smoke test for the design system installation.
+
+  Uses the TOKEN LAYER ONLY (tokens/index.css) — no component CSS. That is the
+  only thing installed at README step 2, so it is the only thing this test can
+  check.
+
+  Run it:
+      npx serve .          # or any static server
+      -> http://localhost:3000/examples/smoke-test.html
+
+  A passing result:
+      · background is dark (not white, not pure black)
+      · the three text levels differ in brightness
+      · the action elements have a fill
+      · the console is empty
+
+  If anything is black or unfilled, the variable did not load — check the path
+  to tokens/index.css.
+
+  Labels here are English because this file mirrors the canonical (English)
+  README. The Polish edition quotes the same fragment with Polish labels; the
+  difference is cosmetic, since the test resolves tokens rather than reading copy.
+
+  This file is a copy of the fragment in README.md section 2, step 2. If you
+  change one, change the other.
+-->
+<link rel="stylesheet" href="../tokens/index.css">
+</head>
+<body>
+
+<div style="background:var(--bg-canvas); color:var(--text-primary);
+            font-family:system-ui,sans-serif; padding:40px; min-height:100vh">
+
+  <h1 style="color:var(--text-primary)">Design system</h1>
+  <p style="color:var(--text-secondary)">Secondary text — light grey</p>
+  <p style="color:var(--text-tertiary)">Helper text — clearly darker</p>
+
+  <div style="display:flex; gap:12px; margin-top:24px">
+    <div style="background:var(--accent); color:#fff; padding:10px 18px;
+                border-radius:var(--r-sm)">Primary action</div>
+    <div style="background:var(--bg-surface-2); border:1px solid var(--border-control);
+                padding:10px 18px; border-radius:var(--r-sm)">Control</div>
+    <div style="background:var(--danger-bg); color:var(--danger-text);
+                border:1px solid var(--danger-bd); padding:10px 18px;
+                border-radius:var(--r-sm)">Error</div>
+  </div>
+
+</div>
+
+</body>
+</html>

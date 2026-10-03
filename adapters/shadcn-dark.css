@@ -1,0 +1,87 @@
+/* =============================================================================
+   ADAPTER — shadcn/ui  (HSL triplet format)
+   =============================================================================
+   GENERATED VALUES — do not hand-edit the numbers; regenerate with:
+       node tools/gen-adapters.mjs
+
+   WHY THIS FILE EXISTS
+   shadcn/ui expects colour variables as a BARE "H S% L%" triplet, because
+   tailwind.config.ts already wraps them:
+
+       primary: 'hsl(var(--primary))'
+
+   Our design system stores hex. If you paste hex here you get a silently
+   broken palette — `hsl(var(--primary))` becomes `hsl(#1f6feb)`, which is an
+   invalid colour and falls back to transparent/black. This file is the bridge.
+
+   HOW TO USE
+   1. Dark mode is the DEFAULT for this system. Replace the contents of the
+      `.dark { ... }` block in your `globals.css` with the block below.
+   2. Keep the existing `@tailwind` directives and any other variables.
+   3. Do not wrap these values in hsl() — tailwind.config.ts already does.
+
+   darkMode: ['class']  is required in tailwind.config.ts.
+   ============================================================================= */
+
+.dark {
+	/* --- surface ladder (canvas → overlay) --- */
+	--background: 212 37.1% 6.9%;          /* #0b1118  canvas    */
+	--foreground: 210 28.6% 97.3%;         /* #f6f8fa  text      */
+
+	--card: 214 30.8% 10.2%;               /* #121922  surface   */
+	--card-foreground: 210 28.6% 97.3%;
+
+	--popover: 215 26% 14.3%;              /* #1b232e  overlay   */
+	--popover-foreground: 210 28.6% 97.3%;
+
+	/* --- brand (tech blue) --- */
+	--primary: 216 83.6% 52.2%;            /* #1f6feb            */
+	--primary-foreground: 0 0% 100%;       /* #ffffff  4.63:1 AA */
+
+	--secondary: 213 25.7% 13.7%;          /* #1a222c            */
+	--secondary-foreground: 210 28.6% 97.3%;
+
+	--muted: 213 25.7% 13.7%;              /* #1a222c            */
+	--muted-foreground: 212 17.6% 64.3%;   /* #94a3b4  6.87:1 AA */
+
+	--accent: 220 67.4% 16.9%;             /* #0e2148  selected  */
+	--accent-foreground: 216 100% 75.5%;   /* #82b4ff  8.35:1 AA */
+
+	/* --- destructive — NOTE: deeper than our raw --danger (#de4040) --- */
+	/* #c93434 chosen so white text clears 4.5:1 (5.22:1).
+	   #de4040 with white text = 4.27:1 and FAILS WCAG AA. Do not swap back. */
+	--destructive: 0 68.5% 49.6%;          /* #c93434            */
+	--destructive-foreground: 0 0% 100%;
+
+	/* --- structure --- */
+	--border: 210 23.5% 20%;               /* #27333f  decorative */
+	--input: 212 13.7% 48.6%;              /* #6b7b8d  control, 3:1+ */
+	--ring: 217 100% 64.9%;                /* #4c90ff  6.09:1 AA */
+
+	--radius: 0.3125rem;                    /* 5px — button/input  */
+
+	/* --- extended status tokens (add to tailwind.config.ts, see below) --- */
+	--success: 157 80.7% 36.7%;
+	--success-foreground: 154 58.4% 61.4%;
+	--warning: 39 83.9% 46.3%;
+	--warning-foreground: 40 88% 67.5%;
+	--info: 193 72.5% 42.7%;
+	--info-foreground: 193 66.7% 65.9%;
+}
+
+/* -----------------------------------------------------------------------------
+   MEASURED CONTRAST (WCAG 2.x relative luminance, against --card #121922)
+   -----------------------------------------------------------------------------
+     foreground                   16.61:1   AA
+     muted-foreground              6.87:1   AA
+     primary-foreground            4.63:1   AA
+     accent-foreground             8.35:1   AA
+     success-foreground            9.84:1   AA
+     warning-foreground           10.99:1   AA
+     info-foreground               9.36:1   AA
+     destructive-foreground        5.22:1   AA
+
+   Known limits — these are deliberate, do not "fix" them silently:
+     --muted-foreground is the floor for body text. Below it, contrast drops
+     under 4.5:1 and you must raise the colour instead of shrinking the type.
+   -------------------------------------------------------------------------- */
