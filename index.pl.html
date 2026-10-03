@@ -952,7 +952,7 @@ select.input {
           <div class="subhead"><span class="subhead__id">00.1</span><h3>Do czego ten system służy</h3></div>
           <div class="prose">
             <p>System interfejsu Enterprise Automation obejmuje oprogramowanie używane przez operatorów obsługujących procesy bez nadzoru na tysiącach maszyn. Ci użytkownicy nie przeglądają treści — oni <strong>monitorują, diagnozują i naprawiają</strong>. Sesje trwają godzinami, ekrany są gęste informacyjnie, a każdy piksel konkuruje o uwagę.</p>
-            <p>Ten kontekst wyznacza całą strategię wizualną. Interfejs jest domyślnie ciemny, ponieważ narzędzia są używane w słabo oświetlonych środowiskach NOC i obok sesji terminalowych; gęstość jest wysoka, ponieważ operatorzy potrzebują szerokiego kontekstu na jednym ekranie; a kolor jest stosowany oszczędnie, ponieważ w interfejsie alarmowym jest sygnałem, a nie ozdobą.</p>
+            <p>Ten kontekst wyznacza całą strategię wizualną. Interfejs jest domyślnie ciemny, ponieważ narzędzia są używane w słabo oświetlonych środowiskach NOC i obok sesji terminalowych; wiersze mają 36 px, ponieważ operatorzy potrzebują szerokiego kontekstu na jednym ekranie; a kolor jest stosowany oszczędnie, ponieważ w interfejsie alarmowym jest sygnałem, a nie ozdobą.</p>
           </div>
 
           <blockquote class="prose" style="margin:0"><strong>Heurystyka nadrzędna:</strong> operator powinien móc przejrzeć ekran z bieżącym stanem automatyzacji i wskazać, co wymaga jego uwagi, w mniej niż trzy sekundy — bez przeczytania choćby jednego słowa.</blockquote>
@@ -983,7 +983,7 @@ select.input {
             <div class="rule rule--do">
               <div class="rule__icon">4</div>
               <div class="rule__body">
-                <p class="rule__title">Gęstość jest cechą interfejsu</p>
+                <p class="rule__title">Ciasniejsze wiersze mieszczą więcej stanu</p>
                 <p class="rule__text">Celuj w tekst podstawowy o rozmiarze 13,5–15 px przy wewnętrznym rytmie 8 px. Preferuj ciaśniejsze wiersze i cyfry tabularne zamiast dużych pustych przestrzeni; operatorzy optymalizują ilość informacji na ekranie, a nie ilość wolnego miejsca.</p>
               </div>
             </div>
@@ -1038,7 +1038,7 @@ select.input {
               </div>
               <dl class="kv">
                 <dt>Siatka bazowa</dt><dd>4px · rytm 8px</dd>
-                <dt>Docelowa gęstość</dt><dd>~1100 pikseli informacji na ekran</dd>
+                <dt>Informacji naraz na ekranie</dt><dd>~1100 px informacji naraz</dd>
                 <dt>Krój główny</dt><dd>Inter (zmienny)</dd>
                 <dt>Krój liczb</dt><dd>Inter z cyframi tabularnymi</dd>
                 <dt>Monospace</dt><dd>JetBrains Mono — kod, ID, IP</dd>
@@ -2185,7 +2185,7 @@ select.input {
               <div class="rule rule--do"><div class="rule__icon">✓</div><div class="rule__body"><p class="rule__title">Jedna akcja główna na widok</p><p class="rule__text">Wszystkie inne akcje schodzą do drugorzędnej, ghost lub linku tekstowego. Oko powinno wiedzieć, gdzie iść, bez namysłu.</p></div></div>
               <div class="rule rule--do"><div class="rule__icon">✓</div><div class="rule__body"><p class="rule__title">Umieść akcję główną na końcu w kolejności DOM</p><p class="rule__text">Interfejs jest odczytywany od lewej do prawej; końcowa akcja powinna znajdować się na końcu przepływu, zwykle na końcu wiersza.</p></div></div>
               <div class="rule rule--do"><div class="rule__icon">✓</div><div class="rule__body"><p class="rule__title">Używaj ikon obok etykiet przy akcjach wysokiego ryzyka</p><p class="rule__text">Usunięcie, wymuszone zatrzymanie i cofnięcie uprawnień wymagają jawnego czasownika. Ikona wzmacnia; nigdy nie zastępuje słowa.</p></div></div>
-              <div class="rule rule--do"><div class="rule__icon">✓</div><div class="rule__body"><p class="rule__title">Grupuj powiązane pola w fieldset</p><p class="rule__text">Powiązane pola korzystają ze wspólnej legendy; opcjonalne ustawienia zaawansowane są ukryte pod możliwością rozwinięcia, aby utrzymać niską domyślną gęstość.</p></div></div>
+              <div class="rule rule--do"><div class="rule__icon">✓</div><div class="rule__body"><p class="rule__title">Grupuj powiązane pola w fieldset</p><p class="rule__text">Powiązane pola korzystają ze wspólnej legendy; opcjonalne ustawienia zaawansowane są ukryte pod możliwością rozwinięcia, aby formularze pozostały zwarte domyślnie.</p></div></div>
               <div class="rule rule--do"><div class="rule__icon">✓</div><div class="rule__body"><p class="rule__title">Umieszczaj odznaki statusu obok elementu, którego dotyczą</p><p class="rule__text">Odznaka w komórce tabeli powinna znajdować się w tym samym wierszu co opisywany zasób — nigdy w osobnej kolumnie statusu daleko po prawej.</p></div></div>
               <div class="rule rule--do"><div class="rule__icon">✓</div><div class="rule__body"><p class="rule__title">Zarezerwuj modale dla decyzji, które trzeba podjąć teraz</p><p class="rule__text">Modal, który można odroczyć, powinien być szufladą. Modal, który tylko wyświetla informację, powinien być panelem w treści.</p></div></div>
             </div>
@@ -2989,7 +2989,7 @@ select.input {
             <div class="panel__head" style="padding:13px 16px"><h3 class="panel__title">Tabela danych</h3><span class="badge badge--success badge--sm">Stabilny</span></div>
             <div class="panel__body stack stack-3">
               <div class="row" style="gap:6px"><span class="badge badge--neutral badge--sm">sortowalna</span><span class="badge badge--neutral badge--sm">z zaznaczaniem</span><span class="badge badge--neutral badge--sm">sticky nagłówek</span></div>
-              <div class="mono-row"><b>Gęstość</b><span>kompaktowy / domyślny</span><em>36 / 44px</em></div>
+              <div class="mono-row"><b>Wysokość wiersza</b><span>kompaktowy / domyślny</span><em>36 / 44px</em></div>
               <div class="mono-row"><b>Wiersze</b><span>wirtualizowany</span><em>&gt; 200</em></div>
               <div class="mono-row"><b>Akcje</b><span>pojawia się na hover</span><em>+ menu kontekstowe</em></div>
             </div>

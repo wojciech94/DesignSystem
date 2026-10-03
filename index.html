@@ -962,7 +962,7 @@ select.input {
             </p>
             <p>
               That context dictates the entire visual strategy. The interface is dark by default because these tools are
-              used in dim NOC environments and alongside terminal sessions; density is high because operators need
+              used in dim NOC environments and alongside terminal sessions; rows are 36 px because operators need
               breadth of context on one screen; and colour is rationed because in an alerting surface, colour is a signal,
               not decoration.
             </p>
@@ -999,7 +999,7 @@ select.input {
             <div class="rule rule--do">
               <div class="rule__icon">4</div>
               <div class="rule__body">
-                <p class="rule__title">Density is a feature</p>
+                <p class="rule__title">Tighter rows fit more state</p>
                 <p class="rule__text">Target 13.5–15px body text on an 8px internal rhythm. Prefer tighter rows and tabular numerics over generous whitespace; operators optimise for information per screen, not for air.</p>
               </div>
             </div>
@@ -1054,7 +1054,7 @@ select.input {
               </div>
               <dl class="kv">
                 <dt>Base grid</dt><dd>4px · 8px layout rhythm</dd>
-                <dt>Target density</dt><dd>~1,100 px information height per viewport</dd>
+                <dt>Information shown at once</dt><dd>~1,100 px height at a time</dd>
                 <dt>Primary typeface</dt><dd>Inter (variable)</dd>
                 <dt>Numeric typeface</dt><dd>Inter with tabular figures</dd>
                 <dt>Monospace</dt><dd>JetBrains Mono — code, IDs, IPs</dd>
@@ -2204,7 +2204,7 @@ select.input {
               <div class="rule rule--do"><div class="rule__icon">✓</div><div class="rule__body"><p class="rule__title">One primary action per view</p><p class="rule__text">All other actions step down to secondary, ghost, or text-link. The eye should know where to go without deliberation.</p></div></div>
               <div class="rule rule--do"><div class="rule__icon">✓</div><div class="rule__body"><p class="rule__title">Place the primary action last in DOM order</p><p class="rule__text">A screen reads left-to-right; the terminal action belongs at the end of the flow, and usually at the end of the row.</p></div></div>
               <div class="rule rule--do"><div class="rule__icon">✓</div><div class="rule__body"><p class="rule__title">Use icons alongside labels for high-risk actions</p><p class="rule__text">Delete, force-stop and revoke warrant an explicit verb. The icon reinforces; it never replaces the word.</p></div></div>
-              <div class="rule rule--do"><div class="rule__icon">✓</div><div class="rule__body"><p class="rule__title">Group related fields in a fieldset</p><p class="rule__text">Related inputs share a legend; optional advanced settings sit behind a disclosure to keep default density low.</p></div></div>
+              <div class="rule rule--do"><div class="rule__icon">✓</div><div class="rule__body"><p class="rule__title">Group related fields in a fieldset</p><p class="rule__text">Related inputs share a legend; optional advanced settings sit behind a disclosure so forms stay compact by default.</p></div></div>
               <div class="rule rule--do"><div class="rule__icon">✓</div><div class="rule__body"><p class="rule__title">Keep status badges adjacent to their subject</p><p class="rule__text">A badge in a table cell belongs on the same row as the resource it describes — never in a separate status column far right.</p></div></div>
               <div class="rule rule--do"><div class="rule__icon">✓</div><div class="rule__body"><p class="rule__title">Reserve modals for decisions that must be made now</p><p class="rule__text">A modal that can be deferred should be a drawer. A modal that only displays information should be an inline panel.</p></div></div>
             </div>
@@ -3010,7 +3010,7 @@ select.input {
             <div class="panel__head" style="padding:13px 16px"><h3 class="panel__title">Data table</h3><span class="badge badge--success badge--sm">Stable</span></div>
             <div class="panel__body stack stack-3">
               <div class="row" style="gap:6px"><span class="badge badge--neutral badge--sm">sortable</span><span class="badge badge--neutral badge--sm">selectable</span><span class="badge badge--neutral badge--sm">sticky hdr</span></div>
-              <div class="mono-row"><b>Density</b><span>compact / default</span><em>36 / 44px</em></div>
+              <div class="mono-row"><b>Row height</b><span>compact / default</span><em>36 / 44px</em></div>
               <div class="mono-row"><b>Rows</b><span>virtualised</span><em>&gt; 200</em></div>
               <div class="mono-row"><b>Actions</b><span>hover-reveal</span><em>+ context</em></div>
             </div>
