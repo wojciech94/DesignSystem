@@ -370,7 +370,17 @@ wymagający uzasadnienia — re-grading palety zepsułby ją po cichu.
 
 ---
 
-## 7. Wersja
+## 7. Licencja
+
+MIT. Zob. [`LICENSE`](LICENSE).
+
+Możesz używać, kopiować, modyfikować, scalać, publikować, dystrybuować,
+udostępniać i sprzedawać kopie — także komercyjnie. Jedynym obowiązkiem jest
+zachowanie noty copyright.
+
+---
+
+## 8. Wersja
 
 3.2.0 · przegląd kwartalny · `index.html` nie ma zależności poza opcjonalnym
 Google Fonts, z pełnym fallbackiem na stack systemowy. Weryfikowany w Chromium

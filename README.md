@@ -365,7 +365,22 @@ justification — a palette re-grade would break it silently.
 
 ---
 
-## 7. Version
+## 7. Licence
+
+MIT. See [`LICENSE`](LICENSE).
+
+You may use, copy, modify, merge, publish, distribute, sublicense and sell
+copies — including commercially. The only obligation is keeping the
+copyright notice.
+
+Not everything here is fair game in every context. The tokens, the board and
+the component recipes are licensed to you; the trademark-like names of real
+products referenced in the examples (`nightly-etl`, `eu-west-2` and so on) are
+fictional sample data, not claims about any product.
+
+---
+
+## 8. Version
 
 3.2.0 · quarterly review · `index.html` has no dependencies beyond optional Google
 Fonts, with a full system-font fallback. Verified in Chromium at 320 / 800 / 1400 /

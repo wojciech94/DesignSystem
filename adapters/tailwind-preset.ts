@@ -8,6 +8,7 @@
  *   const config = { darkMode: ['class'], content: [...],
  *                    theme: { extend: { ...ds } } }
  *
+ * © 2026 Wojciech Kokoszka · MIT License · full text: LICENSE
  * Requires Tailwind v3. For v4 use `@theme` in CSS instead and ignore this file.
  */
 

@@ -23,7 +23,7 @@
   "WCAG AA": "WCAG AA",
   "Status": "Status",
   "● Stable": "● Stable",
-  "{0} Design System · Internal Use · v3.2.0": "{0} Design System · Internal Use · v3.2.0",
+  "{0} Design System · Open Source · MIT · v3.2.0": "{0} Design System · Open Source · MIT · v3.2.0",
   "Enterprise Automation{0}Interface System": "Enterprise Automation{0}Interface System",
   "A unified design language for dense, high-stakes operational software. This board is the single source of truth for color, typography, spacing, elevation, and component behaviour across the automation platform — authored for design, built for engineering handoff, verified against WCAG 2.2 AA.": "A unified design language for dense, high-stakes operational software. This board is the single source of truth for color, typography, spacing, elevation, and component behaviour across the automation platform — authored for design, built for engineering handoff, verified against WCAG 2.2 AA.",
   "Platform": "Platform",
