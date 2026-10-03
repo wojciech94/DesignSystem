@@ -1,0 +1,23 @@
+# ---------------------------------------------------------------------------
+# Znaki konca linii
+# ---------------------------------------------------------------------------
+# W repozytorium wszystko LF. Pliki .css, .json i .mjs z tego systemu sa
+# kopiowane do innych repozytoriów (README, krok 2), wiec LF zapobiega
+# mieszaniu koncow linii i niechcianym diffom na Windows.
+#
+# Uzasadnienie wyboru: autocrlf=true pozwala gitowi normalizowac przy
+# zapisie, ale pozostawia CRLF w working copy, przez co pliki "wygladaj" inaczej
+# niz w repo. .gitattributes ma pierwszenstwo, wiec robimy to jawnie.
+
+* text=auto eol=lf
+
+# Pliki, ktore musza byc bajt w bajt takie same w kazdym systemie
+*.css   text eol=lf
+*.json  text eol=lf
+*.mjs   text eol=lf
+*.ts    text eol=lf
+*.html  text eol=lf
+*.md    text eol=lf
+
+# SVG, gdyby sie pojawily — diffy na wspolnych grafikach byly nieczytelne
+*.svg   text eol=lf diff=svg

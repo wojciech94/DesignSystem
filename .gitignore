@@ -1,0 +1,58 @@
+# ---------------------------------------------------------------------------
+# Design system — ignorowane
+# ---------------------------------------------------------------------------
+
+# Kopie zapasowe slownikow tlumaczen.
+# Uwaga: build skanuje translations/*.json i kazdy plik traktuje jako osobny
+# jezyk. Plik rezerwowy MUSI miec rozszerzenie inne niz .json — inaczej zostanie
+# wygenerowany jako kolejny board (np. index.pl_old.html).
+*.bak
+*.backup
+*.orig
+*~
+
+# Node — brak zaleznosci w tym projekcie, ale adapter jest TS.
+node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build / cache
+.next/
+dist/
+build/
+.cache/
+*.tsbuildinfo
+
+# Edytory
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+#Zmienne srodowiskowe — nigdy nie commitowac
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Pliki robocze
+*.tmp
+*.log
+scratch/
+tmp/
+
+# ---------------------------------------------------------------------------
+# UWAGA: pliki generowane (tokens/, index.pl.html, translations/en.json)
+# SA celowo w repozytorium.
+#
+# Ten system jest dystrybuowany przez kopiowanie plikow do innych repo
+# (README, krok 2), a board ma dzialac po otwarciu z przegladarki repozytorium.
+# Dlatego artefakty sa wersjonowane, a nie generowane przy instalacji.
+# Zrodlem prawdy pozostaje index.html — patrz AGENTS.md sekcja 9.
+# ---------------------------------------------------------------------------
