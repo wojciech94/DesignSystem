@@ -1,114 +1,89 @@
-// Generates HSL-triplet adapters for shadcn/ui compatibility.
-// shadcn expects:  --primary: 217 91% 60%;   consumed as hsl(var(--primary))
-// We store hex, so convert precisely rather than by hand.
-'use strict';
-
-function hexToHsl(hex) {
-  let h = hex.replace('#', '').trim();
-  if (h.length === 3) h = h.split('').map(c => c + c).join('');
-  const r = parseInt(h.slice(0, 2), 16) / 255;
-  const g = parseInt(h.slice(2, 4), 16) / 255;
-  const b = parseInt(h.slice(4, 6), 16) / 255;
-  const max = Math.max(r, g, b), min = Math.min(r, g, b);
-  const l = (max + min) / 2;
-  let s = 0, hh = 0;
-  if (max !== min) {
-    const d = max - min;
-    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-    if (max === r)      hh = ((g - b) / d + (g < b ? 6 : 0));
-    else if (max === g) hh = ((b - r) / d + 2);
-    else                hh = ((r - g) / d + 4);
-    hh /= 6;
-  }
-  return [Math.round(hh * 360), +(s * 100).toFixed(1), +(l * 100).toFixed(1)];
-}
-
-function fmt(hex) {
-  const [h, s, l] = hexToHsl(hex);
-  return `${h} ${s}% ${l}%`;
-}
-
-// Relative luminance + contrast, to sanity-check AA claims in the board.
-function lum(hex) {
+/**
+ * Contrast audit for BOTH themes.
+ *
+ *   node tools/gen-adapters.mjs
+ *
+ * The light theme was designed against these numbers, so this script is the
+ * guard that keeps it honest: if a palette is re-graded and a pair drops below
+ * the threshold, it says so instead of shipping.
+ *
+ * Thresholds: 4.5:1 for text (WCAG 1.4.3), 3:1 for UI components and borders
+ * (WCAG 1.4.11). --text-quaternary is checked against 3:1 because it is
+ * AA-large by design in both themes.
+ */
+const lum = (hex) => {
   const h = hex.replace('#', '');
-  const ch = [0, 2, 4].map(i => {
-    const c = parseInt(h.slice(i, i + 2), 16) / 255;
-    return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+  const c = [0, 2, 4].map((i) => {
+    const v = parseInt(h.slice(i, i + 2), 16) / 255;
+    return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
   });
-  return 0.2126 * ch[0] + 0.7152 * ch[1] + 0.0722 * ch[2];
-}
-function ratio(a, b) {
+  return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+};
+const ratio = (a, b) => {
   const l1 = lum(a), l2 = lum(b);
   return +(((Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05)).toFixed(2));
-}
-
-const PRIMS = {
-  gray: { 0:'#ffffff',25:'#fbfcfd',50:'#f6f8fa',100:'#edf1f5',200:'#dde4ec',300:'#c3ceda',400:'#94a3b4',500:'#6b7b8d',600:'#4e5d6e',700:'#384553',800:'#232d39',850:'#1a222c',900:'#121922',950:'#0b1118' },
-  blue: { 50:'#eef5ff',100:'#d8e8ff',200:'#b4d2ff',300:'#82b4ff',400:'#4c90ff',500:'#1f6feb',600:'#1158d4',700:'#0d43a8',800:'#0c3480',900:'#0b2760' },
-  green:{ 100:'#cff3e1',300:'#63d6a4',500:'#12a970',700:'#0a7550',900:'#053a28' },
-  amber:{ 100:'#fcefD2'.toLowerCase(),300:'#f5c563',500:'#d99513',700:'#925b06',900:'#4a2f04' },
-  red:  { 100:'#fcdede',300:'#f58e8e',500:'#de4040',700:'#96201f',900:'#4c1010' },
-  cyan: { 100:'#d0eff7',300:'#6ec9e2',500:'#1e9bbc',700:'#0f6076',900:'#06323d' },
-  violet:{100:'#e6ddfe',300:'#ae93f7',500:'#7c53e0',700:'#4e2c9e',900:'#28154f' },
 };
 
-// shadcn semantic surface mapping -> DS dark semantics
-const SHADCN = {
-  '--background':       '#0b1118',
-  '--foreground':       '#f6f8fa',
-  '--card':             '#121922',
-  '--card-foreground':  '#f6f8fa',
-  '--popover':          '#1b232e',
-  '--popover-foreground':'#f6f8fa',
-  '--primary':          '#1f6feb',
-  '--primary-foreground':'#ffffff',
-  '--secondary':        '#1a222c',
-  '--secondary-foreground':'#f6f8fa',
-  '--muted':            '#1a222c',
-  '--muted-foreground': '#94a3b4',
-  '--accent':           '#0e2148',
-  '--accent-foreground':'#82b4ff',
-  '--destructive':      '#de4040',
-  '--destructive-foreground':'#ffffff',
-  '--border':           '#27333f',
-  '--input':            '#27333f',
-  '--ring':             '#4c90ff',
+const THEMES = {
+  dark: {
+    surface: '#121922', inset: '#0E141B',
+    pairs: [
+      ['foreground', '#F6F8FA', '#121922', 4.5],
+      ['secondary', '#C3CEDA', '#121922', 4.5],
+      ['tertiary', '#94A3B4', '#121922', 4.5],
+      ['quaternary (AA-large only)', '#6B7B8D', '#121922', 3.0],
+      ['link', '#82B4FF', '#121922', 4.5],
+      ['code', '#6EC9E2', '#121922', 4.5],
+      ['on accent (white on #1F6FEB)', '#FFFFFF', '#1F6FEB', 4.5],
+      ['on danger (white on --danger-solid)', '#FFFFFF', '#C93434', 4.5],
+      ['success-text on success-bg', '#63D6A4', '#0B2A20', 4.5],
+      ['warning-text on warning-bg', '#F5C563', '#2A2010', 4.5],
+      ['danger-text on danger-bg', '#F58E8E', '#2B1414', 4.5],
+      ['info-text on info-bg', '#6EC9E2', '#0C2831', 4.5],
+      ['border-control on bg-inset', '#6B7B8D', '#0E141B', 3.0],
+      ['accent (UI)', '#1F6FEB', '#121922', 3.0],
+    ],
+  },
+  light: {
+    surface: '#FFFFFF', inset: '#F4F6F8',
+    pairs: [
+      ['text-primary', '#0F141A', '#FFFFFF', 4.5],
+      ['text-secondary', '#3C4854', '#FFFFFF', 4.5],
+      ['text-tertiary', '#5A6773', '#FFFFFF', 4.5],
+      ['text-quaternary (AA-large only)', '#6F7B86', '#FFFFFF', 3.0],
+      ['text-link', '#1A5FD0', '#FFFFFF', 4.5],
+      ['text-code', '#0B6E8C', '#FFFFFF', 4.5],
+      ['accent-text', '#1257C4', '#FFFFFF', 4.5],
+      ['on accent (white on #1F6FEB)', '#FFFFFF', '#1F6FEB', 4.5],
+      ['on danger (white on --danger-solid)', '#FFFFFF', '#C43434', 4.5],
+      ['success-text on success-bg', '#0A6B4A', '#E6F6EF', 4.5],
+      ['warning-text on warning-bg', '#8A3F07', '#FDF1E1', 4.5],
+      ['danger-text on danger-bg', '#B02525', '#FDECEC', 4.5],
+      ['info-text on info-bg', '#0A5E75', '#E4F4F8', 4.5],
+      ['border-control on bg-inset', '#828B95', '#F4F6F8', 3.0],
+      ['accent (UI)', '#1F6FEB', '#FFFFFF', 3.0],
+    ],
+  },
 };
 
-// Status -> DS dark semantics (extended shadcn tokens)
-const STATUS = {
-  '--success': '#12a970', '--success-foreground': '#63d6a4',
-  '--warning': '#d99513', '--warning-foreground': '#f5c563',
-  '--info':    '#1e9bbc', '--info-foreground':    '#6ec9e2',
-};
-
-const lines = [];
-lines.push('-- Adapter: DS dark semantics -> shadcn/ui HSL triplets');
-lines.push('-- Generated by tools/gen-adapters.mjs. Do not hand-edit.');
-lines.push('-- Usage: these are BARE "H S% L%" values. shadcn wraps them itself:');
-lines.push('--   "primary": "hsl(var(--primary))"   <- already in tailwind.config.ts');
-lines.push('--   className="bg-primary text-primary-foreground"');
-console.log(lines.join('\n'));
-console.log('');
-for (const [k, v] of Object.entries({ ...SHADCN, ...STATUS })) {
-  console.log(`\t${k}: ${fmt(v)};`);
-}
-console.log('');
-console.log('/* --- contrast audit (text on --card #121922) --- */');
-const audit = [
-  ['foreground','#f6f8fa'],['muted-foreground','#94a3b4'],
-  ['primary-foreground on primary','#ffffff'],
-  ['success-foreground','#63d6a4'],['warning-foreground','#f5c563'],['info-foreground','#6ec9e2'],
-  ['destructive-foreground','#ffffff'],
-];
-for (const [name, hex] of audit) {
-  const r = ratio(hex, '#121922');
-  console.log(`/* ${name.padEnd(34)} ${hex}  ${r}:1  ${r >= 4.5 ? 'AA' : r >= 3 ? 'AA-large only' : 'FAIL'} */`);
-}
-console.log('');
-console.log('/* --- primitives as HSL (for charts / dataviz needs) --- */');
-for (const [fam, steps] of Object.entries(PRIMS)) {
-  for (const [step, hex] of Object.entries(steps)) {
-    console.log(`/* --${fam}-${step}: ${fmt(hex)};  = ${hex} */`);
+let fails = 0;
+for (const [name, theme] of Object.entries(THEMES)) {
+  console.log(`\n${'='.repeat(74)}`);
+  console.log(`  ${name.toUpperCase()} THEME`);
+  console.log('='.repeat(74));
+  for (const [label, fg, bg, need] of theme.pairs) {
+    const r = ratio(fg, bg);
+    const ok = r >= need;
+    if (!ok) fails++;
+    console.log(
+      `${ok ? 'AA  ' : 'FAIL'}  ${String(r).padStart(6)}:1  (min ${need})  ${fg} on ${bg}   ${label}`
+    );
   }
+}
+console.log(`\n${'='.repeat(74)}`);
+const total = Object.values(THEMES).reduce((a, t) => a + t.pairs.length, 0);
+console.log(`  ${total - fails}/${total} pairs pass   FAIL: ${fails}`);
+if (fails) {
+  console.log('  A palette re-grade broke a pair. Fix tokens/ before shipping.');
+  process.exit(1);
 }

@@ -6,7 +6,7 @@
  *
  *   node tools/build-tokens.mjs
  */
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -80,12 +80,16 @@ writeFileSync(
 writeFileSync(
   resolve(root, 'tokens/index.css'),
   banner('DS tokens — single entry point.') +
-  `\n/* Usage (framework-agnostic, any stack):\n\n` +
-  `   @import "./tokens/index.css";\n\n` +
-  `   That single import gives you every primitive, semantic, radius,\n` +
-  `   spacing, motion and elevation token in this design system.\n\n` +
-  `   Tailwind + shadcn users: see adapters/ instead. */\n\n` +
-  `@import "./primitives.css";\n@import "./semantics-dark.css";\n`,
+    `\n/* How the two themes resolve:\n\n` +
+    `   :root                     dark  (default - no attribute needed)\n` +
+    `   :root[data-theme='light'] light (overrides, wins on specificity)\n\n` +
+    `   data-theme="light" on <html> switches everything; dropping the attribute\n` +
+    `   falls back to dark. If a project should default to LIGHT, keep the\n` +
+    `   attribute on <html> rather than swapping the blocks, which would break\n` +
+    `   the fallback. Both layers define identical token names, so no component\n` +
+    `   ever names a theme.\n\n` +
+    `   Tailwind + shadcn users: see adapters/ instead. */\n\n` +
+    `@import "./primitives.css";\n@import "./semantics-dark.css";\n@import "./semantics-light.css";\n`,
   'utf8'
 );
 
@@ -93,5 +97,7 @@ writeFileSync(
 const count = (s) => (s.match(/--[a-z0-9-]+(?=\s*:)/gi) || []).length;
 console.log(`primitives.css   ${count(primitives)} custom properties`);
 console.log(`semantics-dark   ${count(semantics)} + ${count(motion)} motion`);
+if (!existsSync(resolve(root, 'tokens/semantics-light.css'))) console.warn('   WARNING: tokens/semantics-light.css missing - index.css now imports a non-existent file');
+console.log(`semantics-light  ${existsSync(resolve(root, 'tokens/semantics-light.css')) ? count(readFileSync(resolve(root, 'tokens/semantics-light.css'), 'utf8')) : 0} custom properties`);
 console.log(`tokens/index.css written`);
 console.log('adapters/ are hand-maintained — see AGENTS.md section 3');

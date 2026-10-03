@@ -7,14 +7,19 @@
    © 2026 Wojciech Kokoszka · MIT License · full text: LICENSE
    ------------------------------------------------------------------------ */
 
-/* Usage (framework-agnostic, any stack):
+/* How the two themes resolve:
 
-   @import "./tokens/index.css";
+   :root                     dark  (default - no attribute needed)
+   :root[data-theme='light'] light (overrides, wins on specificity)
 
-   That single import gives you every primitive, semantic, radius,
-   spacing, motion and elevation token in this design system.
+   data-theme="light" on <html> switches everything; dropping the attribute
+   falls back to dark. If a project should default to LIGHT, keep the
+   attribute on <html> rather than swapping the blocks, which would break
+   the fallback. Both layers define identical token names, so no component
+   ever names a theme.
 
    Tailwind + shadcn users: see adapters/ instead. */
 
 @import "./primitives.css";
 @import "./semantics-dark.css";
+@import "./semantics-light.css";

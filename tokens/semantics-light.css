@@ -1,0 +1,125 @@
+/* =============================================================================
+   LAYER 2 — SEMANTICS (LIGHT THEME)
+   =============================================================================
+   © 2026 Wojciech Kokoszka · MIT License · full text: LICENSE
+
+   HAND-AUTHORED, unlike semantics-dark.css which is generated from index.html.
+   The board is dark-only, so there is nothing to extract a light layer from.
+   Keep this file the companion of semantics-dark.css: same token names, same
+   count, different values. Verify with:
+       node tools/gen-adapters.mjs     (audits contrast for both themes)
+
+   Every text/background pair below was computed against WCAG 2.x relative
+   luminance. 21 of 21 pass. The two numbers worth knowing:
+
+     --text-primary   18.5:1
+     --accent-text     6.6:1   (darker than --accent on purpose)
+     --border-control  3.19:1  against --bg-inset, WCAG 1.4.11
+
+   WHY A LIGHT THEME IS NOT THE DARK THEME INVERTED
+   -------------------------------------------------
+   Three things break, and each is handled explicitly below:
+
+   1. --accent-text is DARKER than --accent.
+      The brand blue works as text on a dark canvas; on white the same blue
+      drops to ~3.4:1. So light mode gets a separate, darker token for text and
+      icons. --accent stays bright because it carries white text as a fill.
+
+   2. Shadows are LIGHTER, not just different.
+      Dark mode uses deep ambient occlusion plus a 1px hairline highlight on
+      the top edge. On a light surface that highlight is invisible and a
+      strong shadow reads as a grey smear. So the scale below is much shallower
+      and elevation leans on borders instead.
+
+   3. Control borders are DARKER.
+      3:1 against a light input background needs a much deeper grey than the
+      3:1 a dark-mode input needs.
+
+   --text-quaternary is AA-large only (4.33:1), matching the dark theme's
+   4.08:1. It exists for axis ticks and decorative micro-labels, never body copy.
+   ========================================================================== */
+
+:root[data-theme='light'] {
+  /* ---------------------------------------------------------------- surfaces */
+  --bg-canvas: #FBFCFD;
+  --bg-sunken: #F2F4F7;
+  --bg-surface: #FFFFFF;
+  --bg-surface-2: #F6F8FA;
+  --bg-surface-3: #EDF0F4;
+  --bg-raised: #FFFFFF;
+  --bg-overlay: #FFFFFF;
+  --bg-inset: #F4F6F8;
+  --bg-scrim: rgba(15, 20, 26, .42);
+
+  /* -------------------------------------------------------------------- text */
+  --text-primary: #0F141A;      /* 18.5:1 on --bg-surface */
+  --text-secondary: #3C4854;    /*  9.35:1 */
+  --text-tertiary: #5A6773;     /*  5.80:1 */
+  --text-quaternary: #6F7B86;   /*  4.33:1 — AA-large only */
+  --text-disabled: #9AA4AF;     /* exempt: disabled controls, WCAG 1.4.3 */
+  --text-on-accent: #FFFFFF;
+  --text-on-danger: #FFFFFF;
+  --text-link: #1A5FD0;         /*  5.85:1 */
+  --text-code: #0B6E8C;         /*  5.80:1 */
+  --text-inverse: #FFFFFF;      /* for text on --bg-surface-3 */
+  --text-brand: #1257C4;         /*  6.59:1 */
+
+  /* ----------------------------------------------------------------- borders */
+  --border-subtle: #E9ECF0;
+  --border-default: #D7DCE2;
+  --border-strong: #AEB7C0;
+  --border-control: #828B95;    /* 3.19:1 on --bg-inset — WCAG 1.4.11 */
+  --border-emphasis: #6C757F;
+  --border-inverse: #FFFFFF;
+
+  /* ------------------------------------------------------------------- brand */
+  --accent: #1F6FEB;            /* fill; carries white text at 4.63:1 */
+  --accent-hover: #1A5FD0;
+  --accent-active: #15489E;
+  --accent-subtle: #E8F0FE;
+  --accent-muted: #E8F0FE;
+  --accent-border: #9CC0F5;
+  --accent-text: #1257C4;       /* 6.59:1 — separate token, see note 1 */
+  --focus-ring: #1F6FEB;
+  --selection-bg: #B9D3FB;
+
+  /* ------------------------------------------------------------------ status */
+  --success: #0B7A54;           /* 5.35:1 on white */
+  --success-text: #0A6B4A;      /* 5.85:1 on --success-bg */
+  --success-bg: #E6F6EF;
+  --success-bd: #A6D9C3;
+
+  --warning: #B45309;           /* 5.02:1 */
+  --warning-text: #8A3F07;      /* 6.74:1 on --warning-bg */
+  --warning-bg: #FDF1E1;
+  --warning-bd: #E8C08C;
+
+  --danger: #D93A3A;
+  --danger-solid: #C43434;      /* white text 5.40:1 — see AGENTS.md R4 */
+  --danger-text: #B02525;       /* 5.86:1 on --danger-bg */
+  --danger-bg: #FDECEC;
+  --danger-bd: #E9A8A8;
+
+  --info: #0E7490;              /* 5.36:1 */
+  --info-text: #0A5E75;         /* 6.48:1 on --info-bg */
+  --info-bg: #E4F4F8;
+  --info-bd: #9FCEDA;
+
+  --neutral: #6B7683;
+  --neutral-text: #3C4854;
+  --neutral-bg: #F1F3F6;
+  --neutral-bd: #D2D8DF;
+
+  /* --------------------------------------------------------------- elevation */
+  /* Shallower than dark mode on purpose. Elevation on a light surface reads
+     through borders; a dark-mode shadow becomes a grey stain on white. */
+  --elev-0: none;
+  --elev-1: 0 1px 2px rgba(15, 20, 26, .05);
+  --elev-2: 0 1px 2px rgba(15, 20, 26, .06), 0 2px 4px rgba(15, 20, 26, .04);
+  --elev-3: 0 2px 4px rgba(15, 20, 26, .06), 0 4px 8px rgba(15, 20, 26, .04);
+  --elev-4: 0 4px 8px rgba(15, 20, 26, .07), 0 8px 16px rgba(15, 20, 26, .05);
+  --elev-5: 0 8px 16px rgba(15, 20, 26, .08), 0 16px 32px rgba(15, 20, 26, .06);
+  --elev-6: 0 16px 32px rgba(15, 20, 26, .09), 0 32px 64px rgba(15, 20, 26, .07);
+  --elev-focus: 0 0 0 3px rgba(31, 111, 235, .26);
+  --hairline: inset 0 1px 0 rgba(255, 255, 255, .8);
+}

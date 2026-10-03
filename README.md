@@ -10,7 +10,9 @@ stacks, and instructions for agents.
 |---|---|
 | `index.html` | Documentation board — English, source of truth |
 | `index.pl.html` | Documentation board — Polish, generated |
+| `tokens/` | Both themes: `semantics-dark.css` + `semantics-light.css` |
 | `AGENTS.md` | Rules for agents building interfaces |
+| `DEPLOYING.md` | How to take this system into a client project |
 | `tokens/` | Token layer (generated from `index.html`) |
 | `adapters/` | Adapters: HSL for shadcn/ui, Tailwind preset |
 | `translations/` | Translation files + i18n instructions |
@@ -365,7 +367,38 @@ justification — a palette re-grade would break it silently.
 
 ---
 
-## 7. Licence
+## 7. Themes
+
+Both themes ship and both are contrast-audited — 29 of 29 pairs pass, verified
+with `node tools/gen-adapters.mjs`, which exits non-zero if a palette re-grade
+breaks one.
+
+```html
+<html data-theme="light">   świeci
+<html data-theme="dark">    ściemny
+                            atrybut usunięty -> wraca do ciemnego
+```
+
+Tokens resolve like this:
+
+```
+:root                     dark  (default, no attribute needed)
+:root[data-theme='light'] light (overrides on specificity)
+```
+
+Components never name a theme, and the Tailwind preset needs no change — it
+references `var(--bg-surface)` and both layers flow through. Only shadcn needs
+its adapter block swapped (`adapters/shadcn-light.css`).
+
+**A light theme is not the dark theme inverted.** Three things differ, and each
+is deliberate: `--accent-text` is darker than `--accent` (the brand blue drops
+below 4.5:1 as text on white), shadows are much lighter (a dark-mode shadow
+becomes a grey smear on white), and control borders are darker (3:1 against a
+light input needs a deeper grey than against a dark one).
+
+---
+
+## 8. Licence
 
 MIT. See [`LICENSE`](LICENSE).
 
@@ -380,7 +413,7 @@ fictional sample data, not claims about any product.
 
 ---
 
-## 8. Version
+## 9. Version
 
 3.2.0 · quarterly review · `index.html` has no dependencies beyond optional Google
 Fonts, with a full system-font fallback. Verified in Chromium at 320 / 800 / 1400 /

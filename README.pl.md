@@ -11,7 +11,9 @@ najpopularniejsze stacki oraz instrukcje dla agentów.
 |---|---|
 | `index.html` | Board dokumentacyjny — wersja angielska, źródło prawdy |
 | `index.pl.html` | Board dokumentacyjny — wersja polska, generowana |
+| `tokens/` | Oba motywy: `semantics-dark.css` + `semantics-light.css` |
 | `AGENTS.md` | Zasady dla agentów budujących interfejsy |
+| `DEPLOYING.md` | Jak przenieć system do projektu klienta |
 | `tokens/` | Warstwa tokenów (generowana z `index.html`) |
 | `adapters/` | Adaptery: HSL dla shadcn/ui, preset Tailwind |
 | `translations/` | Pliki tłumaczeń + instrukcja i18n |
@@ -370,7 +372,36 @@ wymagający uzasadnienia — re-grading palety zepsułby ją po cichu.
 
 ---
 
-## 7. Licencja
+## 7. Motywy
+
+Dostępne są oba motywy i oba są zweryfikowane pod kątem kontrastu —
+29 z 29 par przechodzi, sprawdzane przez `node tools/gen-adapters.mjs`, który kończy
+się niezerowym kodem, jeśli zmiana palety psuje którą parę.
+
+```html
+<html data-theme="light">   jasny
+<html data-theme="dark">    ciemny
+                            atrybut usunięty → wraca do ciemnego
+```
+
+```
+:root                     ciemny  (domyślnie, bez atrybutu)
+:root[data-theme='light'] jasny   (nadpisuje dzięki specyficzności)
+```
+
+Komponenty nigdy nie nazywają motywu, a preset Tailwinda nie wymaga zmian —
+odwołuje się do `var(--bg-surface)`, a obie warstwy przez to przechodzą.
+Tylko shadcn wymaga podmiany bloku adaptera (`adapters/shadcn-light.css`).
+
+**Jasny motyw to nie odwrócony ciemny.** Trzy rzeczy się różnią celowo:
+`--accent-text` jest ciemniejszy niż `--accent` (markowy niebieski spada poniżej
+4,5:1 jako tekst na bieli), cienie są płytkie (cień z motywu ciemnego
+zamienia się w szarą plamę na bieli), a obramowania kontrolek ciemniejsze
+(3:1 na jasnym tle wymaga głębszego szarego niż na ciemnym).
+
+---
+
+## 8. Licencja
 
 MIT. Zob. [`LICENSE`](LICENSE).
 
@@ -380,7 +411,7 @@ zachowanie noty copyright.
 
 ---
 
-## 8. Wersja
+## 9. Wersja
 
 3.2.0 · przegląd kwartalny · `index.html` nie ma zależności poza opcjonalnym
 Google Fonts, z pełnym fallbackiem na stack systemowy. Weryfikowany w Chromium

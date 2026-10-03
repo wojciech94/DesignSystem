@@ -1,0 +1,91 @@
+/* =============================================================================
+   ADAPTER — shadcn/ui (HSL triplets) — LIGHT THEME
+   =============================================================================
+   © 2026 Wojciech Kokoszka · MIT License · full text: LICENSE
+
+   GENERATED VALUES — the audit below is measured, not estimated.
+   Re-verify with: node tools/gen-adapters.mjs
+
+   WHY shadcn NEEDS ITS OWN ADAPTER
+   --------------------------------
+   shadcn wraps every variable itself: `"primary": "hsl(var(--primary))"`.
+   Pasting hex yields `hsl(#1f6feb)` — an invalid colour the browser rejects
+   silently, leaving the element with no background. So this file carries the
+   same palette as tokens/semantics-light.css, converted to bare "H S% L%"
+   triplets, which is the only format shadcn's config accepts.
+
+   THE ONE VALUE THAT LOOKS WRONG
+   -------------------------------
+   --input is 212 8% 55% (#828B95), a mid grey, while --border is
+   213 16% 86% (#D7DCE2), a pale one. That is intended and not a copy-paste
+   error: WCAG 1.4.11 requires a control's resting border to reach 3:1 against
+   its own background. #D7DCE2 on the inset is ~1.4:1 and invisible. The pale
+   border is for decorative separation; the deeper one is for control edges.
+
+   USE
+   ---
+   Put this in globals.css where the `.light` (or .dark) block belongs, and
+   point `darkMode: ['class']` in tailwind.config.ts at the same attribute the
+   board uses. See tokens/index.css for how the two themes resolve.
+   ========================================================================== */
+
+.light {
+	/* --- surfaces --- */
+	--background: 210 33% 99%;
+	--foreground: 213 27% 8%;
+
+	--card: 0 0% 100%;
+	--card-foreground: 213 27% 8%;
+
+	--popover: 0 0% 100%;
+	--popover-foreground: 213 27% 8%;
+
+	/* --- brand --- */
+	--primary: 216 84% 52%;             /* #1f6feb — carries white text */
+	--primary-foreground: 0 0% 100%;
+
+	--secondary: 216 22% 95%;
+	--secondary-foreground: 213 27% 8%;
+
+	--muted: 216 22% 95%;
+	--muted-foreground: 210 17% 28%;    /* #3c4854 */
+
+	--accent: 218 92% 95%;               /* #e8f0fe — the selected surface */
+	--accent-foreground: 217 83% 42%;    /* #1257c4 — darker on purpose, see note */
+
+	/* --- status --- */
+	--destructive: 0 58% 49%;            /* #c43434 — white text clears 5.4:1 */
+	--destructive-foreground: 0 0% 100%;
+
+	--success: 159 83% 26%;
+	--success-foreground: 160 83% 23%;
+	--warning: 26 90% 37%;
+	--warning-foreground: 26 90% 28%;
+	--info: 193 82% 31%;
+	--info-foreground: 193 84% 25%;
+
+	/* --- structure --- */
+	--border: 213 16% 86%;               /* decorative */
+	--input: 212 8% 55%;                 /* control edges — WCAG 1.4.11 */
+	--ring: 216 84% 52%;
+
+	--radius: 0.3125rem;                 /* 5px — button/input */
+}
+
+/* -----------------------------------------------------------------------------
+   MEASURED CONTRAST (WCAG 2.x relative luminance, against the light surfaces)
+   -----------------------------------------------------------------------------
+     foreground                     18.50:1   AA
+     muted-foreground                9.35:1   AA
+     accent-foreground               6.59:1   AA
+     primary-foreground (on primary)  4.63:1   AA
+     destructive-foreground          5.40:1   AA
+     success-foreground              5.85:1   AA
+     warning-foreground              6.74:1   AA
+     info-foreground                 6.48:1   AA
+     input on the inset surface      3.19:1   WCAG 1.4.11 (UI, not text)
+
+   Known limits, deliberate in both themes:
+     --muted-foreground is the floor for body text. Below it, contrast drops
+     under 4.5:1 and you must raise the colour rather than shrink the type.
+   -------------------------------------------------------------------------- */
